@@ -14,9 +14,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package twitter4j.anhvurz90.samples.directmessage;
+package twitter4j.anhvurz90.samples.search;
 
-import twitter4j.DirectMessage;
+import java.util.List;
+
+import twitter4j.Query;
+import twitter4j.QueryResult;
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -27,21 +31,26 @@ import twitter4j.TwitterFactory;
  *          exo@exoplatform.com
  * May 9, 2015  
  */
-public class SendDirectMessage {
-
+public class SearchTweets {
+  
   public static void main(String[] args) {
     Twitter twitter = TwitterFactory.getSingleton();
     try {
-      DirectMessage message = twitter.sendDirectMessage("tungtns", 
-                      "day la text dc send = 1 java program." +
-                      "Neu may nhan dc message nay thi chuong trinh tao chay dung. Reply nhe:)!"
-      );
-      System.out.println("Direct message successfully send to " + message.getRecipientScreenName());
+      Query query = new Query("status1");
+      QueryResult result;
+      do {
+        result = twitter.search(query);
+        List<Status> tweets = result.getTweets();
+        for (Status tweet : tweets) {
+          System.out.format("@%s - %s\n", tweet.getUser().getScreenName(), tweet.getText());
+        }
+      } while ((query = result.nextQuery()) != null);
       System.exit(0);
     } catch (TwitterException te) {
       te.printStackTrace();
-      System.out.println("Failed to send a direct message: " + te.getMessage());
+      System.out.println("Failed to search tweets: " + te.getMessage());
       System.exit(-1);
     }
   }
+
 }
