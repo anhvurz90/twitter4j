@@ -99,5 +99,6 @@
         <module>twitter4j-http2-support</module>
         <module>twitter4j-stream</module>
         <module>twitter4j-media-support</module>
+	<module>twitter4j-vu-samples</module>
     </modules>
 </project>
