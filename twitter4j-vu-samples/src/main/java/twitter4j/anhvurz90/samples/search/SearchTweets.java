@@ -36,7 +36,7 @@ public class SearchTweets {
   public static void main(String[] args) {
     Twitter twitter = TwitterFactory.getSingleton();
     try {
-      Query query = new Query("status1");
+      Query query = new Query("anhvurz90");
       QueryResult result;
       do {
         result = twitter.search(query);
